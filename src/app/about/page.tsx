@@ -73,21 +73,6 @@ export default function AboutPage() {
           </ol>
         </section>
 
-        <section className={styles.section}>
-          <div className={`${styles.sectionLabel} eyebrow`}>关于这个站</div>
-          <h2 className={styles.h2}>它是怎么做出来的</h2>
-          <div className={styles.body}>
-            <p>
-              静态站，纯粹文字与卦象。中文用霞鹜文楷，
-              英文用 Cormorant Garamond，编号用 JetBrains Mono——
-              三种字体配着，像旧书的"宋字+花体批注+小注"。
-            </p>
-            <p>
-              视觉风格叫「数字宋本」——米纸底、墨色字、朱砂印。
-              想做出一种"在屏幕上翻一卷古书"的感觉。
-            </p>
-          </div>
-        </section>
       </div>
     </div>
   );

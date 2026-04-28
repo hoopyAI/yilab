@@ -42,8 +42,8 @@
   /* 双线朱框，仿古书插图 */
   border: 1px solid var(--accent);
   outline: 1px solid var(--accent);
-  outline-offset: 4px;
-  padding: var(--s-4);
+  outline-offset: 6px;
+  padding: var(--s-3);
   background: var(--card);
   position: relative;
 }

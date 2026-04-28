@@ -50,7 +50,7 @@ export default async function GuaDetailPage({ params }: { params: Promise<Params
       <header className={styles.hero}>
         <div className={styles.heroLeft}>
           <div className={styles.symbolBox}>
-            <HexagramSymbol hexagram={h} size={240} stroke={10} />
+            <HexagramSymbol hexagram={h} size={256} />
           </div>
 
           <div className={styles.heroNameRow}>
