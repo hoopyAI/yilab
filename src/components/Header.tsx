@@ -6,7 +6,8 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.inner}>
         <Link href="/" className={styles.brand}>
-          <span className={styles.brandMark}>易</span>YiLab
+          <span className={styles.brandSeal} aria-hidden>易</span>
+          <span className={styles.brandWord}>YiLab</span>
         </Link>
         <nav className={styles.nav}>
           <Link href="/gua/" className={styles.navLink}>卦象</Link>

@@ -2,25 +2,25 @@ import styles from './page.module.css';
 
 export const metadata = {
   title: '关于',
-  description: '关于 YiLab 与项目主理人',
+  description: '关于 YiLab 与这份易经笔记的来由',
 };
 
 const PRINCIPLES = [
   {
-    title: '只做义理，不做术数',
-    body: '不算婚姻、不算疾病、不算生死。易经在这里是<strong>决策与思考的框架</strong>，不是预测的术。',
+    title: '只读义理，不演术数',
+    body: '不算婚姻、不算疾病、不算生死。易经在这里是<strong>思考与决策的框架</strong>，不是预测的术。',
   },
   {
-    title: '渐进发布，公开学习',
-    body: 'v1 上线时只完整写了 8 卦的现代解读，剩下 56 卦逐周更新。这不是缺陷，是<strong>"和读者一起学"的承诺</strong>。',
+    title: '渐进发布，公开共读',
+    body: '初版只完整写了 8 卦的现代解读，剩下的逐周更新。这不是缺陷，是<strong>"和读者一起读下去"的承诺</strong>。',
   },
   {
-    title: '一个产品人在读',
-    body: '所有解读都会带"决策检查点 + 现代场景类比"。乾卦六爻怎么对应一个项目的 0→1，是这里专门要讲的事。',
+    title: '以今释古',
+    body: '每一卦都附"今释"——三千年前的话，用今天能听懂的语言重讲一遍；附以现代场景，看古人智慧落到哪里。',
   },
   {
-    title: '永远开源思维',
-    body: '内容会沉淀在公开页面、可复制可引用。不在微信群里。',
+    title: '一份开放的笔记',
+    body: '内容沉淀在公开页面，可复制可引用。不在微信群里，不上抖音直播。慢一些，但留得住。',
   },
 ];
 
@@ -30,35 +30,39 @@ export default function AboutPage() {
       <div className={styles.container}>
         <div className={`${styles.label} eyebrow`}>About · 关于</div>
         <h1 className={styles.title}>YiLab 是什么</h1>
+        <p className={styles.subtitle}>An I Ching, unhurried.</p>
 
         <div className={styles.body}>
           <p>
-            YiLab 是一个<em>产品人/科技人解构易经</em>的可交互式学习站。
+            YiLab 是一份认真重读易经的笔记。
           </p>
           <p>
             "易"的本意是<em>变化</em>——不是预测未来，是
-            <em>在不确定中保持清醒和柔韧</em>。"Lab" 不是说我是大师，
-            是说这是一个公开的实验室——你能看到我学到哪、卡在哪、想到什么。
+            <em>在不确定中保持清醒与柔韧</em>。
+            "Lab" 不是大师的实验台，是一间公开的书房——
+            你能看到我学到哪、卡在哪、想到什么。
           </p>
           <p>
-            64 卦在我看来是 64 种"系统状态"的原型：每一卦的 6 爻是状态内部的 6 个动力位置；
-            卦的"变爻"是状态转移函数。这听起来玄，但任何做过产品/系统/复杂决策的人都会会心一笑——
-            易经其实是中国人三千年前发明的一套<em>面向不确定性的"系统状态描述语言"</em>。
+            这里把六十四卦当成<em>现代人的决策框架</em>来读，
+            不走玄学一路。每一卦都附"今释"——
+            把古文中那些容易被错读的"吉""凶""利""贞"等字眼，
+            翻成现代人能落地的意思；再配一段现代场景，
+            看三千年前的智慧能否照见今天的处境。
           </p>
-          <p>这里要做的，是把这套语言翻译给现代人听。</p>
+          <p>
+            不疾不徐，逐卦更新。一卷读完，是给自己一笔耐心。
+          </p>
         </div>
 
         <section className={styles.section}>
-          <div className={`${styles.sectionLabel} eyebrow`}>Principles · 几条原则</div>
-          <h2 className={styles.h2}>这个项目怎么做事</h2>
+          <div className={`${styles.sectionLabel} eyebrow`}>四条原则</div>
+          <h2 className={styles.h2}>这份笔记怎么写</h2>
           <ol className={styles.principles}>
             {PRINCIPLES.map((p, i) => (
               <li key={i} className={styles.principle}>
                 <span className={styles.principleNum}>0{i + 1}</span>
                 <div>
-                  <div style={{ fontFamily: 'var(--font-title), serif', fontWeight: 600, marginBottom: 4 }}>
-                    {p.title}
-                  </div>
+                  <div className={styles.principleHead}>{p.title}</div>
                   <p
                     className={styles.principleText}
                     dangerouslySetInnerHTML={{ __html: p.body }}
@@ -70,15 +74,17 @@ export default function AboutPage() {
         </section>
 
         <section className={styles.section}>
-          <div className={`${styles.sectionLabel} eyebrow`}>Stack · 技术声明</div>
-          <h2 className={styles.h2}>这个站是怎么做的</h2>
+          <div className={`${styles.sectionLabel} eyebrow`}>关于这个站</div>
+          <h2 className={styles.h2}>它是怎么做出来的</h2>
           <div className={styles.body}>
             <p>
-              Next.js 16 + React 19 + TypeScript，纯静态导出，部署在 Cloudflare Pages。
-              字体使用 Noto Serif SC + Playfair Display + JetBrains Mono。视觉风格叫「数字宋本」。
+              静态站，纯粹文字与卦象。中文用霞鹜文楷，
+              英文用 Cormorant Garamond，编号用 JetBrains Mono——
+              三种字体配着，像旧书的"宋字+花体批注+小注"。
             </p>
             <p>
-              源码与设计文档（包括 6 个月学习计划）会逐步开放。
+              视觉风格叫「数字宋本」——米纸底、墨色字、朱砂印。
+              想做出一种"在屏幕上翻一卷古书"的感觉。
             </p>
           </div>
         </section>

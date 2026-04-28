@@ -1,18 +1,29 @@
 /* ================================================================
-   YiLab — 数字宋本 设计系统
+   YiLab — 数字宋本 设计系统 v2
    米纸 · 墨黑 · 朱砂 · 墨青
+   字体：霞鹜文楷（中）+ Cormorant Garamond（英）+ JetBrains Mono
    ================================================================ */
 
+/* 霞鹜文楷 Screen 版（专为屏幕优化） */
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css');
+
 :root {
-  /* ── 色板（仅 8 色） ── */
-  --bg:        #FBF7EE;  /* 米纸 */
-  --fg:        #1A1714;  /* 墨色 */
-  --card:      #FFFFFF;  /* 纸上贴纸 */
-  --muted:     #6B6359;  /* 暖灰 / 褪墨 */
-  --border:    #E8DFCE;  /* 米色细边 */
-  --accent:    #B23A2E;  /* 朱砂 */
-  --ink-blue:  #355C7D;  /* 墨青 */
-  --danger:    #DC2626;
+  /* ── 色板 ── */
+  --bg:        #F5ECD7;  /* 略带年代感的米黄 */
+  --bg-warm:   #EFE3C5;  /* 更深一档暖调，用于 section 交替 */
+  --fg:        #211C18;  /* 深墨偏暖 */
+  --card:      #FCF7E8;  /* 纸上微亮 */
+  --muted:     #6B5F50;  /* 暖灰 */
+  --border:    #D9C9A8;  /* 米色细边 */
+  --accent:    #A83232;  /* 朱砂 */
+  --accent-deep: #7C2222; /* 深朱 — 用于印章背景 */
+  --ink-blue:  #2E4A66;  /* 墨青 */
+
+  /* ── 字体栈（fallback 链很重要） ── */
+  --serif-cn:   'LXGW WenKai Screen', 'LXGW WenKai', 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+  --serif-en:   var(--font-title), 'Cormorant Garamond', Georgia, serif;
+  --serif-mix:  var(--font-title), 'Cormorant Garamond', 'LXGW WenKai Screen', 'Noto Serif SC', serif;
+  --mono:       var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
 
   /* ── 字号系统 ── */
   --type-display:  64px;
@@ -34,12 +45,10 @@
   --s-8: 96px;
   --s-9: 128px;
 
-  /* ── 容器 ── */
   --max-reading: 720px;
   --max-wide:    1080px;
 }
 
-/* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 
@@ -50,28 +59,37 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--fg);
-  font-family: var(--font-body), 'Noto Serif SC', 'Source Serif 4', Georgia, serif;
-  line-height: 1.75;
-  letter-spacing: 0;
+  font-family: var(--serif-cn);
+  line-height: 1.85;
+  letter-spacing: 0.01em;
 
-  /* 纸纹噪点 */
+  /* 古纸纹理：双层 — 极细颗粒噪点 + 极淡米色斑驳 */
   background-image:
+    radial-gradient(circle at 25% 30%, rgba(168, 50, 50, 0.018) 0, transparent 40%),
+    radial-gradient(circle at 75% 70%, rgba(46, 74, 102, 0.015) 0, transparent 35%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(33, 28, 24, 0.012) 0,
+      rgba(33, 28, 24, 0.012) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
     repeating-radial-gradient(
       circle at 50% 50%,
-      rgba(26, 23, 20, 0.025) 0,
-      rgba(26, 23, 20, 0.025) 1px,
+      rgba(33, 28, 24, 0.025) 0,
+      rgba(33, 28, 24, 0.025) 1px,
       transparent 1px,
       transparent 3px
     );
-  background-size: 4px 4px;
+  background-size: 100% 100%, 100% 100%, 6px 6px, 4px 4px;
 }
 
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 200ms ease-out, border-color 200ms ease-out;
+  transition: color 220ms ease-out, border-color 220ms ease-out;
   border-bottom: 1px solid transparent;
 }
 a:hover, a:focus-visible {
@@ -80,19 +98,19 @@ a:hover, a:focus-visible {
 }
 a:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 p { margin: 0; }
 button { font-family: inherit; cursor: pointer; }
 
 /* ── 字体类 ── */
-.font-title { font-family: var(--font-title), 'Noto Serif SC', 'Playfair Display', serif; }
-.font-hand  { font-family: var(--font-hand),  'Noto Serif SC', serif; }   /* 文楷 / drop cap */
-.font-mono  { font-family: var(--font-mono),  'JetBrains Mono', ui-monospace, monospace; }
-.font-eng   { font-family: 'Playfair Display', Georgia, serif; }
+.font-cn   { font-family: var(--serif-cn); }
+.font-en   { font-family: var(--serif-en); font-style: italic; }
+.font-mix  { font-family: var(--serif-mix); }
+.font-mono { font-family: var(--mono); }
 
-/* ── 共用工具 ── */
+/* ── 容器 ── */
 .container {
   max-width: var(--max-wide);
   margin: 0 auto;
@@ -104,6 +122,58 @@ button { font-family: inherit; cursor: pointer; }
   margin: 0 auto;
   padding-left: var(--s-4);
   padding-right: var(--s-4);
+}
+
+/* ── 古典装饰元素 ── */
+
+/* 朱栏：竖直朱砂细线，用于段落侧 */
+.zhulan {
+  border-left: 2px solid var(--accent);
+  padding-left: var(--s-4);
+}
+
+/* 印章：朱砂方块，里面写一个字，可微旋转 */
+.seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--accent-deep);
+  color: var(--card);
+  font-family: var(--serif-cn);
+  font-size: 26px;
+  line-height: 1;
+  font-weight: 400;
+  transform: rotate(-3deg);
+  box-shadow: 1px 1px 0 rgba(33, 28, 24, 0.2);
+  letter-spacing: 0;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* 卷草分割线 */
+.fleuron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--s-6) 0;
+  color: var(--accent);
+  font-size: 18px;
+  letter-spacing: 0.5em;
+  text-align: center;
+}
+.fleuron::before, .fleuron::after {
+  content: '';
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: var(--border);
+}
+.fleuron::before { margin-right: var(--s-4); }
+.fleuron::after { margin-left: var(--s-4); }
+.fleuron-mark::after {
+  content: '❦';
 }
 
 .hairline {
@@ -120,26 +190,18 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .eyebrow {
-  font-family: var(--font-mono), monospace;
+  font-family: var(--mono);
   font-size: var(--type-mono);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
-/* ── 卦象图 SVG 默认色 ── */
-svg.hexagram-svg .line-yang,
-svg.hexagram-svg .line-yin-half {
-  fill: var(--fg);
-}
-
-/* ── 重置 select 出现时的访问性 ── */
 ::selection {
   background: var(--accent);
   color: var(--bg);
 }
 
-/* ── 响应式 ── */
 @media (max-width: 768px) {
   :root {
     --type-display: 48px;
@@ -152,4 +214,5 @@ svg.hexagram-svg .line-yin-half {
     padding-left: var(--s-3);
     padding-right: var(--s-3);
   }
+  .seal { width: 38px; height: 38px; font-size: 20px; }
 }

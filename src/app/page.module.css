@@ -1,59 +1,114 @@
+/* ── Hero ── */
 .hero {
+  position: relative;
   padding: var(--s-9) 0 var(--s-7);
   text-align: center;
+  overflow: hidden;
+}
+
+/* 角落卷草装饰 */
+.hero::before, .hero::after {
+  content: '';
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border: 1px solid var(--border);
+  pointer-events: none;
+  opacity: 0.7;
+}
+.hero::before {
+  top: 32px;
+  left: 32px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.hero::after {
+  bottom: 32px;
+  right: 32px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.heroEyebrow {
+  font-family: var(--mono);
+  font-size: var(--type-mono);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: var(--s-5);
 }
 
 .heroMark {
-  font-family: var(--font-body), 'Noto Serif SC', serif;
-  font-size: clamp(180px, 32vw, 320px);
+  font-family: var(--serif-cn);
+  font-size: clamp(220px, 38vw, 380px);
   font-weight: 400;
-  line-height: 0.9;
+  line-height: 0.85;
   color: var(--fg);
   letter-spacing: -0.04em;
   position: relative;
   display: inline-block;
 }
 
-.heroMark::after {
-  content: '';
+/* 印章在 易 字右下角 */
+.sealOverlay {
   position: absolute;
-  right: -32px;
-  bottom: 18%;
-  width: 14px;
-  height: 14px;
-  background: var(--accent);
-  /* tiny seal-like square */
-}
-
-@media (max-width: 600px) {
-  .heroMark::after {
-    width: 10px;
-    height: 10px;
-    right: -16px;
-  }
+  right: -8px;
+  bottom: 14%;
+  width: 56px;
+  height: 56px;
+  background: var(--accent-deep);
+  color: var(--card);
+  font-family: var(--serif-cn);
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-4deg);
+  box-shadow: 1px 1px 0 rgba(33, 28, 24, 0.2);
 }
 
 .brandWord {
-  font-family: var(--font-title), 'Playfair Display', serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 500;
+  font-family: var(--serif-en);
   font-style: italic;
-  letter-spacing: 0.02em;
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
   margin-top: var(--s-3);
+  color: var(--fg);
 }
 
-.heroRule {
-  width: 80px;
-  height: 1px;
-  background: var(--accent);
+.fleuron {
   margin: var(--s-5) auto;
-  border: 0;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 16px;
 }
+.fleuron::before, .fleuron::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.fleuron::before { margin-right: var(--s-3); }
+.fleuron::after { margin-left: var(--s-3); }
 
 .tagline {
-  font-size: var(--type-h3);
+  font-family: var(--serif-cn);
+  font-size: clamp(20px, 2.5vw, 26px);
+  color: var(--fg);
+  margin-bottom: var(--s-3);
+  letter-spacing: 0.05em;
+}
+
+.subtag {
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 18px;
   color: var(--muted);
-  margin-bottom: var(--s-6);
+  margin-bottom: var(--s-7);
 }
 
 .ctas {
@@ -64,23 +119,61 @@
 }
 
 .cta {
-  font-family: var(--font-title), serif;
+  font-family: var(--serif-cn);
   font-size: var(--type-h3);
   padding: var(--s-3) var(--s-5);
   border: 1px solid var(--fg);
   background: transparent;
   color: var(--fg);
   border-bottom: 1px solid var(--fg);
-  transition: all 200ms ease-out;
+  transition: all 220ms ease-out;
+  letter-spacing: 0.1em;
 }
 .cta:hover, .cta:focus-visible {
   background: var(--fg);
   color: var(--bg);
   border-color: var(--fg);
 }
+.ctaPrimary {
+  background: var(--accent-deep);
+  color: var(--card);
+  border-color: var(--accent-deep);
+}
+.ctaPrimary:hover, .ctaPrimary:focus-visible {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+
+/* ── Manifesto ── */
+.manifesto {
+  padding: var(--s-7) 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-warm);
+}
+.manifestoInner {
+  max-width: var(--max-reading);
+  margin: 0 auto;
+  padding: 0 var(--s-4);
+}
+.manifestoLabel {
+  margin-bottom: var(--s-4);
+  text-align: center;
+}
+.manifestoText {
+  font-family: var(--serif-cn);
+  font-size: var(--type-h3);
+  line-height: 2;
+  text-align: justify;
+  letter-spacing: 0.03em;
+}
+.manifestoText em {
+  color: var(--accent);
+  font-style: normal;
+}
 
 /* ── Recent updates ── */
-
 .recent {
   padding: var(--s-7) 0;
 }
@@ -90,17 +183,8 @@
   padding: 0 var(--s-4);
 }
 .recentLabel {
-  display: flex;
-  align-items: center;
-  gap: var(--s-3);
-  margin-bottom: var(--s-4);
-}
-.recentLabel::before,
-.recentLabel::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
+  text-align: center;
+  margin-bottom: var(--s-5);
 }
 
 .recentList {
@@ -117,7 +201,7 @@
   display: flex;
   align-items: baseline;
   gap: var(--s-4);
-  padding: var(--s-4) 0;
+  padding: var(--s-4) var(--s-2);
   border-bottom: 0;
 }
 .recentLink:hover, .recentLink:focus-visible {
@@ -130,46 +214,31 @@
 }
 
 .recentSeq {
-  font-family: var(--font-mono), monospace;
+  font-family: var(--mono);
   font-size: var(--type-mono);
   color: var(--muted);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   flex-shrink: 0;
-  width: 60px;
+  width: 70px;
 }
 
 .recentTitle {
   flex: 1;
+  font-family: var(--serif-cn);
   font-size: var(--type-h3);
-  transition: color 200ms ease-out;
+  transition: color 220ms ease-out;
 }
 
-.recentMeta {
-  font-family: var(--font-mono), monospace;
-  font-size: var(--type-mono);
+.recentSymbol {
+  font-family: var(--serif-cn);
+  font-size: 24px;
   color: var(--muted);
-  letter-spacing: 0.08em;
+  flex-shrink: 0;
 }
 
-/* ── Manifesto ── */
-.manifesto {
-  padding: var(--s-7) 0;
-  border-top: 4px solid var(--fg);
-  border-bottom: 1px solid var(--border);
-}
-.manifestoInner {
-  max-width: var(--max-reading);
-  margin: 0 auto;
-  padding: 0 var(--s-4);
-}
-.manifestoLabel {
-  margin-bottom: var(--s-4);
-}
-.manifestoText {
-  font-size: var(--type-h3);
-  line-height: 1.85;
-}
-.manifestoText em {
-  color: var(--accent);
-  font-style: normal;
+@media (max-width: 600px) {
+  .hero::before, .hero::after { width: 80px; height: 80px; }
+  .hero::before { top: 16px; left: 16px; }
+  .hero::after { bottom: 16px; right: 16px; }
+  .sealOverlay { width: 38px; height: 38px; font-size: 20px; right: -6px; }
 }

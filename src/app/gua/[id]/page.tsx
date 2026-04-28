@@ -37,12 +37,13 @@ export default async function GuaDetailPage({ params }: { params: Promise<Params
   const hasModern = Boolean(h.judgmentModern);
   const prevId = idNum > 1 ? idNum - 1 : null;
   const nextId = idNum < 64 ? idNum + 1 : null;
+  const idStr = String(h.id).padStart(2, '0');
 
   return (
     <article className={styles.page}>
       <div className={styles.crumb}>
-        <Link href="/gua/">← 返回卦象索引</Link>
-        <span>{String(h.id).padStart(2, '0')} / 64 · King Wen</span>
+        <Link href="/gua/">← 返回索引</Link>
+        <span>{idStr} / 64 · King Wen</span>
       </div>
 
       {/* Hero split */}
@@ -55,28 +56,31 @@ export default async function GuaDetailPage({ params }: { params: Promise<Params
           <div className={styles.heroNameRow}>
             <div className={styles.heroName}>{h.name}</div>
             <div className={styles.heroPinyin}>{h.pinyin}</div>
+            <div className={styles.heroSeal} aria-hidden>
+              <span>{h.name}</span>
+              <span className={styles.heroSealNum}>{idStr}</span>
+            </div>
           </div>
 
           <div className={styles.heroMeta}>
-            <div>上卦 · {upper.name} {upper.symbol} <strong>{upper.nature}</strong></div>
-            <div>下卦 · {lower.name} {lower.symbol} <strong>{lower.nature}</strong></div>
-            <div>序 · {String(h.id).padStart(2, '0')} / 64</div>
-            <div>{h.unicode} · U+{(0x4dc0 + h.id - 1).toString(16).toUpperCase()}</div>
+            <div>上 <span className={styles.heroMetaSym}>{upper.symbol}</span> {upper.name} · <strong>{upper.nature}</strong></div>
+            <div>下 <span className={styles.heroMetaSym}>{lower.symbol}</span> {lower.name} · <strong>{lower.nature}</strong></div>
+            <div>序 · 第 {h.id} 卦 / 共六十四</div>
           </div>
 
           <div className={styles.related}>
-            <div className={styles.relatedLabel}>关联卦</div>
+            <div className={styles.relatedLabel}>关联卦象</div>
             <Link href={`/gua/${inv.id}/`} className={styles.relatedLink}>
               <span className={styles.relatedKind}>综卦</span>
-              <span className={styles.relatedTo}>{inv.name} ({inv.id})</span>
+              <span className={styles.relatedTo}>{inv.name} · 第 {inv.id} 卦</span>
             </Link>
             <Link href={`/gua/${opp.id}/`} className={styles.relatedLink}>
               <span className={styles.relatedKind}>错卦</span>
-              <span className={styles.relatedTo}>{opp.name} ({opp.id})</span>
+              <span className={styles.relatedTo}>{opp.name} · 第 {opp.id} 卦</span>
             </Link>
             <Link href={`/gua/${nuc.id}/`} className={styles.relatedLink}>
               <span className={styles.relatedKind}>互卦</span>
-              <span className={styles.relatedTo}>{nuc.name} ({nuc.id})</span>
+              <span className={styles.relatedTo}>{nuc.name} · 第 {nuc.id} 卦</span>
             </Link>
           </div>
         </div>
@@ -86,16 +90,17 @@ export default async function GuaDetailPage({ params }: { params: Promise<Params
           {hasJudgment ? (
             <p className={styles.judgment}>{h.judgment}</p>
           ) : (
-            <p className={`${styles.judgment} ${styles.judgmentEmpty}`}>
-              （古文整理中）
-            </p>
+            <p className={`${styles.judgment} ${styles.judgmentEmpty}`}>古文整理中</p>
           )}
 
           {hasModern ? (
-            <div className={styles.modern}>{h.judgmentModern}</div>
+            <>
+              <div className={`${styles.modernLabel} eyebrow`}>今 释 · Modern Reading</div>
+              <div className={styles.modern}>{h.judgmentModern}</div>
+            </>
           ) : hasJudgment ? (
             <div className={styles.fallback}>
-              这一卦的现代解读还在写。计划在「乾→坤→屯→蒙→需→讼→师→比」八卦写完后再依次往后推。
+              这一卦的今释还在写中。计划顺着乾→坤→屯→蒙→需→讼→师→比依次往后推，每周一两卦。
             </div>
           ) : null}
         </div>
@@ -110,45 +115,50 @@ export default async function GuaDetailPage({ params }: { params: Promise<Params
         </section>
       )}
 
-      {/* 决策框架视角 */}
+      {/* 今释 决策 */}
       {h.decisionFramework && (
-        <section className={styles.decision}>
-          <h2 className={styles.decisionTitle}>决策框架视角</h2>
-          <ul className={styles.checkpointList}>
-            {h.decisionFramework.checkpoints.map((cp, i) => (
-              <li
-                key={i}
-                className={styles.checkpoint}
-                dangerouslySetInnerHTML={{
-                  __html: cp.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>'),
-                }}
-              />
-            ))}
-          </ul>
-          <div className={`${styles.scenarioLabel} eyebrow`}>现代场景类比</div>
-          <p className={styles.scenario}>{h.decisionFramework.scenario}</p>
-        </section>
+        <>
+          <div className={styles.divider}>❦</div>
+          <section className={styles.decision}>
+            <h2 className={styles.decisionTitle}>时位三问</h2>
+            <div className={styles.decisionTitleEn}>Three Questions of Position &amp; Time</div>
+            <ul className={styles.checkpointList}>
+              {h.decisionFramework.checkpoints.map((cp, i) => (
+                <li
+                  key={i}
+                  className={styles.checkpoint}
+                  dangerouslySetInnerHTML={{
+                    __html: cp.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>'),
+                  }}
+                />
+              ))}
+            </ul>
+            <div className={`${styles.scenarioLabel} eyebrow`}>今 境 · A Modern Reflection</div>
+            <p className={styles.scenario}>{h.decisionFramework.scenario}</p>
+          </section>
+        </>
       )}
 
       {/* 爻辞 */}
       {h.lines.some((l) => l.text) && (
         <section className={styles.linesSection}>
-          <div className={`${styles.sectionLabel} eyebrow`}>爻辞 · The Lines（自下而上）</div>
+          <div className={styles.divider}>❦</div>
+          <div className={`${styles.sectionLabel} eyebrow`}>爻辞 · The Lines</div>
           <p className={styles.linesIntro}>
-            按易经传统，爻辞从初爻读到上爻——下方为最早的"潜伏期"，上方为最晚的"过盛期"。
+            自下而上，从初爻读到上爻——下方为最早的潜伏期，上方为最末的过盛期。
           </p>
           <ul className={styles.linesList}>
             {h.lines.map((line) => (
               <li key={line.position} className={styles.lineItem}>
                 <div className={styles.linePos}>
                   <span className={styles.linePosLabel}>{line.positionLabel}</span>
-                  {String(line.position).padStart(2, '0')}
+                  <span className={styles.linePosOrd}>{String(line.position).padStart(2, '0')}</span>
                 </div>
                 <div>
                   {line.text ? (
                     <p className={styles.lineText}>{line.text}</p>
                   ) : (
-                    <p className={styles.lineEmpty}>（古文整理中）</p>
+                    <p className={styles.lineEmpty}>古文整理中</p>
                   )}
                 </div>
               </li>
@@ -159,12 +169,8 @@ export default async function GuaDetailPage({ params }: { params: Promise<Params
 
       {/* Bottom nav */}
       <nav className={styles.bottomNav}>
-        <div>
-          {prevId && <Link href={`/gua/${prevId}/`}>← 第 {prevId} 卦</Link>}
-        </div>
-        <div>
-          {nextId && <Link href={`/gua/${nextId}/`}>第 {nextId} 卦 →</Link>}
-        </div>
+        <div>{prevId && <Link href={`/gua/${prevId}/`}>← 第 {prevId} 卦</Link>}</div>
+        <div>{nextId && <Link href={`/gua/${nextId}/`}>第 {nextId} 卦 →</Link>}</div>
       </nav>
     </article>
   );

@@ -2,6 +2,7 @@
   border-top: 1px solid var(--border);
   margin-top: var(--s-9);
   padding: var(--s-6) 0;
+  background: var(--bg-warm);
 }
 
 .inner {
@@ -16,14 +17,32 @@
 }
 
 .brand {
-  font-family: var(--font-title), serif;
-  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.brandSeal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: var(--accent-deep);
+  color: var(--card);
+  font-family: var(--serif-cn);
+  font-size: 15px;
+  transform: rotate(-3deg);
+}
+.brandWord {
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
 }
 
 .meta {
-  font-family: var(--font-mono), monospace;
-  font-size: var(--type-mono);
-  letter-spacing: 0.12em;
+  font-family: var(--serif-cn);
+  font-size: 14px;
   color: var(--muted);
-  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
