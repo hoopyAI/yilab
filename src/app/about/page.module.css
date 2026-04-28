@@ -1,0 +1,76 @@
+.page {
+  padding: var(--s-7) 0;
+}
+
+.container {
+  max-width: var(--max-reading);
+  margin: 0 auto;
+  padding: 0 var(--s-4);
+}
+
+.label { margin-bottom: var(--s-3); }
+
+.title {
+  font-family: var(--font-title), 'Playfair Display', serif;
+  font-size: var(--type-h1);
+  font-weight: 700;
+  margin-bottom: var(--s-5);
+}
+
+.body {
+  font-size: var(--type-body);
+  line-height: 1.85;
+}
+
+.body p {
+  margin-bottom: var(--s-4);
+}
+
+.body em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.section {
+  margin-top: var(--s-7);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--border);
+}
+
+.sectionLabel { margin-bottom: var(--s-3); }
+
+.h2 {
+  font-family: var(--font-title), 'Noto Serif SC', serif;
+  font-size: var(--type-h2);
+  font-weight: 600;
+  margin-bottom: var(--s-3);
+}
+
+.principles {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.principle {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+.principle:last-child { border-bottom: 0; }
+
+.principleNum {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--type-mono);
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.principleText {
+  font-size: var(--type-body);
+  line-height: 1.7;
+}
+.principleText strong { color: var(--accent); font-weight: 600; }

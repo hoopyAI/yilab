@@ -1,0 +1,136 @@
+.page {
+  padding: var(--s-7) 0;
+}
+
+.header {
+  max-width: var(--max-reading);
+  margin: 0 auto var(--s-7);
+  padding: 0 var(--s-4);
+}
+
+.label {
+  margin-bottom: var(--s-3);
+}
+
+.title {
+  font-family: var(--font-title), 'Playfair Display', serif;
+  font-size: var(--type-h1);
+  font-weight: 700;
+  margin-bottom: var(--s-3);
+}
+
+.lead {
+  font-size: var(--type-h3);
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.legend {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--type-mono);
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: var(--s-5);
+  display: flex;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legendDot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  display: inline-block;
+}
+.legendDotMuted {
+  width: 8px;
+  height: 8px;
+  background: var(--border);
+  display: inline-block;
+}
+
+.grid {
+  max-width: var(--max-wide);
+  margin: 0 auto;
+  padding: 0 var(--s-4);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.cell {
+  background: var(--card);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-2);
+  text-align: center;
+  border-bottom: 0;
+  position: relative;
+  transition: background 200ms ease-out;
+}
+.cell:hover, .cell:focus-visible {
+  background: var(--bg);
+  border-bottom: 0;
+}
+
+.cellSymbol {
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: var(--s-2);
+  color: var(--fg);
+}
+
+.cellName {
+  font-family: var(--font-title), 'Noto Serif SC', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.cellSeq {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+}
+
+/* 已写解读：左上角朱砂小点 */
+.cellHasModern::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+}
+
+/* 古文整理中：整体淡化 */
+.cellEmpty .cellSymbol,
+.cellEmpty .cellName {
+  color: var(--muted);
+  opacity: 0.55;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .cellSymbol { font-size: 30px; }
+}
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
