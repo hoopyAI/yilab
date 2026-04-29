@@ -4,6 +4,7 @@
   padding: var(--s-9) 0 var(--s-7);
   text-align: center;
   overflow: hidden;
+  isolation: isolate;
 }
 
 /* 角落卷草装饰 */
@@ -12,9 +13,10 @@
   position: absolute;
   width: 220px;
   height: 220px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--gold);
   pointer-events: none;
-  opacity: 0.7;
+  opacity: 0.4;
+  z-index: 0;
 }
 .hero::before {
   top: 32px;
@@ -32,10 +34,37 @@
 .heroEyebrow {
   font-family: var(--mono);
   font-size: var(--type-mono);
-  letter-spacing: 0.32em;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: var(--s-5);
+  position: relative;
+  z-index: 2;
+}
+
+.markWrap {
+  position: relative;
+  display: inline-block;
+  z-index: 2;
+}
+
+/* 易字身后的金色光晕 */
+.halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110%;
+  height: 110%;
+  background: radial-gradient(
+    circle,
+    rgba(184, 152, 88, 0.28) 0%,
+    rgba(184, 152, 88, 0.12) 35%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(8px);
 }
 
 .heroMark {
@@ -43,54 +72,101 @@
   font-size: clamp(220px, 38vw, 380px);
   font-weight: 400;
   line-height: 0.85;
-  color: var(--fg);
   letter-spacing: -0.04em;
   position: relative;
   display: inline-block;
+
+  /* 渐变文字（深墨 → 偏红墨）*/
+  background: linear-gradient(
+    180deg,
+    #1A130F 0%,
+    #2D1F18 45%,
+    #4A2E22 80%,
+    #5C3526 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
-/* 印章在 易 字右下角 */
+/* 印章 — 渐变 + 立体 */
 .sealOverlay {
   position: absolute;
-  right: -8px;
+  right: -16px;
   bottom: 14%;
-  width: 56px;
-  height: 56px;
-  background: var(--accent-deep);
+  width: 64px;
+  height: 64px;
+  background: var(--grad-cinnabar);
   color: var(--card);
   font-family: var(--serif-cn);
   font-size: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: rotate(-4deg);
-  box-shadow: 1px 1px 0 rgba(33, 28, 24, 0.2);
+  transform: rotate(-5deg);
+  box-shadow: var(--shadow-seal);
+  z-index: 3;
+}
+.sealOverlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 28% 28%,
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+}
+.sealOverlay span {
+  position: relative;
+  z-index: 1;
+  font-weight: 500;
 }
 
 .brandWord {
   font-family: var(--serif-en);
   font-style: italic;
-  font-size: clamp(36px, 5.5vw, 64px);
+  font-size: clamp(36px, 5.5vw, 60px);
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   margin-top: var(--s-3);
-  color: var(--fg);
+  background: linear-gradient(
+    135deg,
+    #2A1F18 0%,
+    #4A382B 50%,
+    #6B5240 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  position: relative;
+  z-index: 2;
 }
 
 .fleuron {
   margin: var(--s-5) auto;
-  width: 200px;
+  width: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--accent);
-  font-size: 16px;
+  font-size: 18px;
+  position: relative;
+  z-index: 2;
 }
 .fleuron::before, .fleuron::after {
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--border);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold) 50%,
+    transparent 100%
+  );
 }
 .fleuron::before { margin-right: var(--s-3); }
 .fleuron::after { margin-left: var(--s-3); }
@@ -100,62 +176,113 @@
   font-size: clamp(20px, 2.5vw, 26px);
   color: var(--fg);
   margin-bottom: var(--s-3);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
+  position: relative;
+  z-index: 2;
 }
 
 .subtag {
   font-family: var(--serif-en);
   font-style: italic;
-  font-size: 18px;
+  font-size: 19px;
   color: var(--muted);
   margin-bottom: var(--s-7);
+  letter-spacing: 0.04em;
+  position: relative;
+  z-index: 2;
 }
 
 .ctas {
   display: flex;
-  gap: var(--s-5);
+  gap: var(--s-4);
   justify-content: center;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
 }
 
 .cta {
   font-family: var(--serif-cn);
   font-size: var(--type-h3);
-  padding: var(--s-3) var(--s-5);
-  border: 1px solid var(--fg);
+  padding: var(--s-3) var(--s-6);
   background: transparent;
   color: var(--fg);
+  border: 1px solid var(--fg);
   border-bottom: 1px solid var(--fg);
-  transition: all 220ms ease-out;
-  letter-spacing: 0.1em;
+  transition: all 280ms var(--ease-soft);
+  letter-spacing: 0.15em;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--fg);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 320ms var(--ease-soft);
+  z-index: -1;
 }
 .cta:hover, .cta:focus-visible {
-  background: var(--fg);
-  color: var(--bg);
+  color: var(--card);
   border-color: var(--fg);
+  border-bottom-color: var(--fg);
+}
+.cta:hover::before, .cta:focus-visible::before {
+  transform: scaleY(1);
 }
 .ctaPrimary {
-  background: var(--accent-deep);
+  background: var(--grad-cinnabar);
   color: var(--card);
   border-color: var(--accent-deep);
+  box-shadow: var(--shadow-paper);
+  position: relative;
+}
+.ctaPrimary::before {
+  background: var(--grad-ink);
 }
 .ctaPrimary:hover, .ctaPrimary:focus-visible {
-  background: var(--fg);
-  color: var(--bg);
+  color: var(--card);
   border-color: var(--fg);
 }
 
 /* ── Manifesto ── */
 .manifesto {
   padding: var(--s-7) 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-warm);
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--bg-warm) 30%,
+    var(--bg-warm) 70%,
+    transparent 100%
+  );
 }
+.manifesto::before, .manifesto::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold) 50%,
+    transparent 100%
+  );
+}
+.manifesto::before { top: 0; }
+.manifesto::after { bottom: 0; }
+
 .manifestoInner {
   max-width: var(--max-reading);
   margin: 0 auto;
   padding: 0 var(--s-4);
+  position: relative;
+  z-index: 1;
 }
 .manifestoLabel {
   margin-bottom: var(--s-4);
@@ -166,21 +293,29 @@
   font-size: var(--type-h3);
   line-height: 2;
   text-align: justify;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
 }
 .manifestoText em {
-  color: var(--accent);
+  background: var(--grad-cinnabar);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   font-style: normal;
+  font-weight: 500;
 }
 
-/* ── Recent updates ── */
+/* ── Recent ── */
 .recent {
   padding: var(--s-7) 0;
+  position: relative;
 }
 .recentInner {
   max-width: var(--max-reading);
   margin: 0 auto;
   padding: 0 var(--s-4);
+  position: relative;
+  z-index: 1;
 }
 .recentLabel {
   text-align: center;
@@ -194,8 +329,17 @@
 }
 .recentItem {
   border-bottom: 1px solid var(--border);
+  transition: background 280ms var(--ease-soft);
 }
 .recentItem:last-child { border-bottom: 0; }
+.recentItem:hover {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 250, 236, 0.6) 50%,
+    transparent 100%
+  );
+}
 
 .recentLink {
   display: flex;
@@ -216,22 +360,22 @@
 .recentSeq {
   font-family: var(--mono);
   font-size: var(--type-mono);
-  color: var(--muted);
-  letter-spacing: 0.15em;
+  color: var(--gold-deep);
+  letter-spacing: 0.18em;
   flex-shrink: 0;
-  width: 70px;
+  width: 80px;
 }
 
 .recentTitle {
   flex: 1;
   font-family: var(--serif-cn);
   font-size: var(--type-h3);
-  transition: color 220ms ease-out;
+  transition: color 280ms var(--ease-soft);
 }
 
 .recentSymbol {
   font-family: var(--serif-cn);
-  font-size: 24px;
+  font-size: 26px;
   color: var(--muted);
   flex-shrink: 0;
 }
@@ -240,5 +384,5 @@
   .hero::before, .hero::after { width: 80px; height: 80px; }
   .hero::before { top: 16px; left: 16px; }
   .hero::after { bottom: 16px; right: 16px; }
-  .sealOverlay { width: 38px; height: 38px; font-size: 20px; right: -6px; }
+  .sealOverlay { width: 44px; height: 44px; font-size: 20px; right: -8px; }
 }

@@ -29,6 +29,7 @@ export default function GuaIndexPage() {
       </header>
 
       <div className={styles.gridWrap}>
+        <div className={styles.gridFrame}>
         <div className={styles.grid}>
           {HEXAGRAMS.map((h) => {
             const modern = hasModernContent(h);
@@ -45,6 +46,7 @@ export default function GuaIndexPage() {
               </Link>
             );
           })}
+        </div>
         </div>
       </div>
     </div>

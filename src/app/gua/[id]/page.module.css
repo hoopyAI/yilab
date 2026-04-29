@@ -1,5 +1,6 @@
 .page {
   padding: var(--s-6) 0 var(--s-7);
+  position: relative;
 }
 
 /* ── Top crumb ── */
@@ -11,14 +12,16 @@
   justify-content: space-between;
   font-family: var(--mono);
   font-size: var(--type-mono);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
+  position: relative;
+  z-index: 1;
 }
 .crumb a:hover { color: var(--accent); }
 .crumb a { border-bottom: 0; }
 
-/* ── Hero ── */
+/* ── Hero split ── */
 .hero {
   max-width: var(--max-wide);
   margin: 0 auto;
@@ -29,6 +32,22 @@
   align-items: start;
   border-bottom: 1px solid var(--border);
   position: relative;
+  z-index: 1;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold) 50%,
+    transparent 100%
+  );
 }
 
 .heroLeft {
@@ -39,13 +58,30 @@
 }
 
 .symbolBox {
-  /* 双线朱框，仿古书插图 */
+  /* 朱框 + 渐变内底 */
   border: 1px solid var(--accent);
   outline: 1px solid var(--accent);
   outline-offset: 6px;
   padding: var(--s-3);
-  background: var(--card);
+  background: var(--grad-card);
+  box-shadow: var(--shadow-paper);
   position: relative;
+}
+.symbolBox::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(184, 152, 88, 0.1) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.symbolBox > svg {
+  position: relative;
+  z-index: 1;
 }
 
 .heroNameRow {
@@ -60,6 +96,11 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   line-height: 1;
+  background: var(--grad-ink);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 .heroPinyin {
   font-family: var(--serif-en);
@@ -71,9 +112,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: var(--accent-deep);
+  width: 44px;
+  height: 44px;
+  background: var(--grad-cinnabar);
   color: var(--card);
   font-family: var(--serif-cn);
   font-size: 14px;
@@ -81,10 +122,25 @@
   transform: rotate(-4deg);
   margin-left: var(--s-2);
   align-self: center;
-  box-shadow: 1px 1px 0 rgba(33, 28, 24, 0.18);
+  box-shadow: var(--shadow-seal);
   text-align: center;
   flex-direction: column;
   padding: 4px 0;
+  position: relative;
+}
+.heroSeal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 28% 28%,
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 55%
+  );
+}
+.heroSeal > span {
+  position: relative;
+  z-index: 1;
 }
 .heroSealNum {
   font-family: var(--mono);
@@ -126,7 +182,7 @@
 .relatedLabel {
   font-family: var(--mono);
   font-size: var(--type-mono);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: var(--s-1);
@@ -152,8 +208,9 @@
   font-size: 26px;
   line-height: 2;
   letter-spacing: 0.06em;
-  /* 朱栏：左侧朱砂细线 */
-  border-left: 2px solid var(--accent);
+  /* 朱栏 with 渐变 */
+  border-left: 2px solid transparent;
+  border-image: linear-gradient(180deg, var(--accent-bright) 0%, var(--accent-deep) 100%) 1;
   padding-left: var(--s-4);
   position: relative;
 }
@@ -164,7 +221,7 @@
   top: -8px;
   width: 2px;
   height: 8px;
-  background: var(--accent);
+  background: var(--accent-bright);
 }
 .judgment::after {
   content: '';
@@ -173,7 +230,7 @@
   bottom: -8px;
   width: 2px;
   height: 8px;
-  background: var(--accent);
+  background: var(--accent-deep);
 }
 
 .judgmentEmpty {
@@ -198,9 +255,13 @@
   font-size: 4em;
   float: left;
   line-height: 0.85;
-  color: var(--accent);
+  background: var(--grad-cinnabar);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   margin: 0.06em 0.12em 0 0;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 /* ── Sections ── */
@@ -208,28 +269,32 @@
   max-width: var(--max-reading);
   margin: var(--s-7) auto 0;
   padding: 0 var(--s-4);
+  position: relative;
+  z-index: 1;
 }
-.sectionLabel {
-  text-align: center;
-  margin-bottom: var(--s-3);
-}
-.sectionLabelLeft { margin-bottom: var(--s-3); }
+.sectionLabel { text-align: center; margin-bottom: var(--s-3); }
 
-/* 卷草分割 */
 .divider {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: var(--s-7) auto;
-  max-width: 200px;
+  max-width: 220px;
   color: var(--accent);
   font-size: 18px;
+  position: relative;
+  z-index: 1;
 }
 .divider::before, .divider::after {
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--border);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold) 50%,
+    transparent 100%
+  );
 }
 .divider::before { margin-right: var(--s-3); }
 .divider::after { margin-left: var(--s-3); }
@@ -239,7 +304,8 @@
   font-size: 22px;
   line-height: 2;
   letter-spacing: 0.05em;
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid transparent;
+  border-image: linear-gradient(180deg, var(--accent-bright) 0%, var(--accent-deep) 100%) 1;
   padding-left: var(--s-4);
   margin-bottom: var(--s-4);
 }
@@ -251,7 +317,7 @@
   letter-spacing: 0.03em;
 }
 
-/* ── Decision (今释) ── */
+/* ── 决策（今释）── */
 .decision {
   max-width: var(--max-reading);
   margin: var(--s-7) auto 0;
@@ -259,17 +325,32 @@
   border: 1px solid var(--border);
   outline: 1px solid var(--border);
   outline-offset: 6px;
-  background: var(--card);
+  background: var(--grad-card);
+  box-shadow: var(--shadow-lift);
   position: relative;
+  z-index: 1;
+}
+.decision::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(184, 152, 88, 0.08) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
 }
 
 .decisionTitle {
   font-family: var(--serif-cn);
   font-size: var(--type-h2);
   font-weight: 600;
-  margin-bottom: var(--s-4);
+  margin-bottom: var(--s-3);
   text-align: center;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
+  position: relative;
+  z-index: 1;
 }
 .decisionTitleEn {
   font-family: var(--serif-en);
@@ -278,6 +359,8 @@
   color: var(--muted);
   text-align: center;
   margin-bottom: var(--s-5);
+  position: relative;
+  z-index: 1;
 }
 
 .checkpointList {
@@ -287,6 +370,8 @@
   gap: var(--s-3);
   margin-bottom: var(--s-5);
   counter-reset: checkpoint;
+  position: relative;
+  z-index: 1;
 }
 .checkpoint {
   font-family: var(--serif-cn);
@@ -303,11 +388,15 @@
   font-family: var(--mono);
   font-size: var(--type-mono);
   color: var(--accent);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   padding-top: 6px;
 }
 .checkpoint strong {
-  color: var(--accent);
+  background: var(--grad-cinnabar);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   font-weight: 600;
 }
 
@@ -315,6 +404,8 @@
   margin-bottom: var(--s-2);
   text-align: center;
   margin-top: var(--s-5);
+  position: relative;
+  z-index: 1;
 }
 .scenario {
   font-family: var(--serif-cn);
@@ -323,6 +414,8 @@
   color: var(--fg);
   letter-spacing: 0.04em;
   font-style: italic;
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Lines ── */
@@ -330,6 +423,8 @@
   max-width: var(--max-reading);
   margin: var(--s-7) auto 0;
   padding: 0 var(--s-4);
+  position: relative;
+  z-index: 1;
 }
 
 .linesIntro {
@@ -354,13 +449,19 @@
   padding: var(--s-4) 0;
   border-bottom: 1px solid var(--border);
   align-items: baseline;
+  transition: background 280ms var(--ease-soft);
 }
 .lineItem:first-of-type { border-bottom: 0; }
-
-.linePos {
-  text-align: right;
-  padding-top: 4px;
+.lineItem:hover {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 250, 236, 0.5) 50%,
+    transparent 100%
+  );
 }
+
+.linePos { text-align: right; padding-top: 4px; }
 .linePosLabel {
   font-family: var(--serif-cn);
   font-size: 18px;
@@ -373,7 +474,7 @@
   font-family: var(--mono);
   font-size: 11px;
   color: var(--muted);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   margin-top: 4px;
   display: block;
 }
@@ -393,7 +494,7 @@
 .fallback {
   margin-top: var(--s-3);
   padding: var(--s-4);
-  background: transparent;
+  background: rgba(255, 250, 236, 0.5);
   border: 1px dashed var(--border);
   font-family: var(--serif-cn);
   font-size: var(--type-small);
@@ -413,6 +514,8 @@
   font-family: var(--serif-cn);
   font-size: var(--type-body);
   letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
 }
 .bottomNav a:hover { color: var(--accent); }
 .bottomNav a { border-bottom: 0; }

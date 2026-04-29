@@ -2,10 +2,14 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(245, 236, 215, 0.92);
+  background: linear-gradient(
+    180deg,
+    rgba(248, 239, 211, 0.9) 0%,
+    rgba(239, 226, 188, 0.85) 100%
+  );
   border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
 }
 
 .inner {
@@ -15,6 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .brand {
@@ -25,22 +30,36 @@
   text-decoration: none;
 }
 .brand:hover { color: var(--fg); border-bottom: none; }
-.brand:hover .brandSeal { background: var(--accent); }
 
 .brandSeal {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  background: var(--accent-deep);
+  width: 32px;
+  height: 32px;
+  background: var(--grad-cinnabar);
   color: var(--card);
   font-family: var(--serif-cn);
   font-size: 18px;
   line-height: 1;
   transform: rotate(-3deg);
-  transition: background 220ms ease-out;
+  box-shadow: var(--shadow-seal);
   flex-shrink: 0;
+  position: relative;
+  transition: transform 280ms var(--ease-soft);
+}
+.brandSeal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 30% 30%,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 55%
+  );
+}
+.brand:hover .brandSeal {
+  transform: rotate(-6deg) scale(1.05);
 }
 
 .brandWord {
@@ -48,8 +67,12 @@
   font-style: italic;
   font-size: 22px;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--fg);
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #2A1F18 0%, #4A382B 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .nav {
@@ -62,8 +85,9 @@
 .navLink {
   border-bottom: none;
   position: relative;
-  padding-bottom: 3px;
+  padding-bottom: 4px;
   color: var(--fg);
+  letter-spacing: 0.05em;
 }
 .navLink::after {
   content: '';
@@ -72,22 +96,21 @@
   right: 0;
   bottom: 0;
   height: 1px;
-  background: var(--accent);
+  background: var(--grad-cinnabar);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 220ms ease-out;
+  transition: transform 280ms var(--ease-soft);
 }
 .navLink:hover::after,
 .navLink:focus-visible::after {
   transform: scaleX(1);
 }
-.navLink:hover,
-.navLink:focus-visible {
+.navLink:hover, .navLink:focus-visible {
   color: var(--accent);
 }
 
 @media (max-width: 600px) {
   .nav { gap: var(--s-3); font-size: var(--type-small); }
-  .brandSeal { width: 26px; height: 26px; font-size: 15px; }
+  .brandSeal { width: 28px; height: 28px; font-size: 15px; }
   .brandWord { font-size: 18px; }
 }

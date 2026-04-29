@@ -1,5 +1,6 @@
 .page {
   padding: var(--s-7) 0 var(--s-8);
+  position: relative;
 }
 
 .header {
@@ -7,6 +8,8 @@
   margin: 0 auto var(--s-7);
   padding: 0 var(--s-4);
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .label { margin-bottom: var(--s-3); }
@@ -16,7 +19,12 @@
   font-size: var(--type-h1);
   font-weight: 600;
   margin-bottom: var(--s-3);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
+  background: var(--grad-ink);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 .titleEn {
   font-family: var(--serif-en);
@@ -31,7 +39,7 @@
   font-size: var(--type-h3);
   color: var(--fg);
   line-height: 1.95;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-align: justify;
   max-width: 600px;
   margin: 0 auto;
@@ -41,7 +49,7 @@
   font-family: var(--mono);
   font-size: var(--type-mono);
   color: var(--muted);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   margin-top: var(--s-5);
   display: flex;
@@ -52,7 +60,7 @@
 .legendItem { display: flex; align-items: center; gap: 8px; }
 .legendDot {
   width: 8px; height: 8px;
-  background: var(--accent);
+  background: var(--grad-cinnabar);
   display: inline-block;
 }
 .legendDotMuted {
@@ -65,6 +73,28 @@
   max-width: var(--max-wide);
   margin: 0 auto;
   padding: 0 var(--s-4);
+  position: relative;
+  z-index: 1;
+}
+
+/* 双重朱框包住网格，仿装裱 */
+.gridFrame {
+  padding: 12px;
+  background: linear-gradient(
+    135deg,
+    var(--accent-bright) 0%,
+    var(--accent) 50%,
+    var(--accent-deep) 100%
+  );
+  box-shadow: var(--shadow-lift);
+  position: relative;
+}
+.gridFrame::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255, 250, 236, 0.4);
+  pointer-events: none;
 }
 
 .grid {
@@ -73,15 +103,10 @@
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
-  /* 模拟旧书外朱栏 */
-  outline: 4px double var(--accent);
-  outline-offset: -8px;
-  padding: 8px;
-  background-color: var(--accent);
 }
 
 .cell {
-  background: var(--card);
+  background: var(--grad-card);
   aspect-ratio: 1 / 1;
   display: flex;
   flex-direction: column;
@@ -91,11 +116,17 @@
   text-align: center;
   border-bottom: 0;
   position: relative;
-  transition: all 220ms ease-out;
+  transition: all 320ms var(--ease-soft);
 }
 .cell:hover, .cell:focus-visible {
-  background: var(--bg-warm);
+  background: linear-gradient(
+    180deg,
+    #FFFCF1 0%,
+    #F8E8B8 100%
+  );
   border-bottom: 0;
+  z-index: 2;
+  box-shadow: 0 4px 12px -4px rgba(96, 70, 40, 0.3);
 }
 
 .cellSymbol {
@@ -104,7 +135,9 @@
   line-height: 1;
   margin-bottom: var(--s-2);
   color: var(--fg);
+  transition: transform 320ms var(--ease-soft);
 }
+.cell:hover .cellSymbol { transform: scale(1.08); }
 
 .cellName {
   font-family: var(--serif-cn);
@@ -118,7 +151,7 @@
   font-family: var(--mono);
   font-size: 10px;
   color: var(--muted);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   margin-top: 2px;
 }
 
@@ -130,7 +163,8 @@
   right: 6px;
   width: 6px;
   height: 6px;
-  background: var(--accent);
+  background: var(--grad-cinnabar);
+  z-index: 1;
 }
 
 .cellEmpty .cellSymbol,

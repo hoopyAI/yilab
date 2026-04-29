@@ -1,31 +1,94 @@
 /* ================================================================
-   YiLab — 数字宋本 设计系统 v2
-   米纸 · 墨黑 · 朱砂 · 墨青
-   字体：霞鹜文楷（中）+ Cormorant Garamond（英）+ JetBrains Mono
+   YiLab — 绢本古卷 设计系统 v3
+   层次感强 / 渐变与质感 / 笔墨与朱砂的呼吸
    ================================================================ */
 
-/* 霞鹜文楷 Screen 版（专为屏幕优化） */
 @import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css');
 
 :root {
-  /* ── 色板 ── */
-  --bg:        #F5ECD7;  /* 略带年代感的米黄 */
-  --bg-warm:   #EFE3C5;  /* 更深一档暖调，用于 section 交替 */
-  --fg:        #211C18;  /* 深墨偏暖 */
-  --card:      #FCF7E8;  /* 纸上微亮 */
-  --muted:     #6B5F50;  /* 暖灰 */
-  --border:    #D9C9A8;  /* 米色细边 */
-  --accent:    #A83232;  /* 朱砂 */
-  --accent-deep: #7C2222; /* 深朱 — 用于印章背景 */
-  --ink-blue:  #2E4A66;  /* 墨青 */
+  /* ── 基础色（带温度）── */
+  --bg-light:   #F8EFD3;  /* 米纸最亮处（光斑） */
+  --bg:         #EFE2BC;  /* 米纸基色 */
+  --bg-warm:    #E5D5A8;  /* 米纸暗处（卷边） */
+  --bg-deeper:  #D5C193;  /* 描影 */
 
-  /* ── 字体栈（fallback 链很重要） ── */
+  --fg:         #1F1813;  /* 深墨 */
+  --fg-soft:    #36281D;  /* 略浅墨 */
+
+  --card:       #FFFAEC;  /* 内页纸面 */
+  --card-warm:  #F4E4BD;  /* 贴纸暗 */
+
+  --muted:      #6B5949;  /* 暖灰墨 */
+  --muted-2:    #8B7457;
+
+  --border:     #C9B287;  /* 米色细边 */
+  --border-soft: rgba(33, 24, 19, 0.08);
+
+  /* ── 朱砂体系（带深浅）── */
+  --accent:     #B43A2E;
+  --accent-deep: #7E1F18;
+  --accent-bright: #D4554A;
+  --accent-glow: rgba(180, 58, 46, 0.25);
+
+  /* ── 墨青 + 描金 ── */
+  --ink-blue:   #2E4A66;
+  --gold:       #B89858;
+  --gold-deep:  #8E7440;
+
+  /* ── 氛围渐变（背景叠层）── */
+  --aura-warm: radial-gradient(
+    ellipse 1200px 800px at 30% 20%,
+    rgba(248, 234, 196, 0.85) 0%,
+    rgba(239, 226, 188, 0.4) 35%,
+    transparent 70%
+  );
+  --aura-amber: radial-gradient(
+    ellipse 800px 600px at 80% 70%,
+    rgba(184, 152, 88, 0.18) 0%,
+    transparent 60%
+  );
+  --vignette: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(96, 70, 40, 0.12) 100%
+  );
+
+  /* ── 朱砂渐变（仿宣纸印泥不均匀）── */
+  --grad-cinnabar: linear-gradient(
+    135deg,
+    var(--accent-bright) 0%,
+    var(--accent) 45%,
+    var(--accent-deep) 100%
+  );
+  --grad-cinnabar-soft: linear-gradient(
+    135deg,
+    rgba(212, 85, 74, 0.95) 0%,
+    rgba(180, 58, 46, 0.95) 50%,
+    rgba(126, 31, 24, 0.95) 100%
+  );
+
+  /* ── 墨色渐变 ── */
+  --grad-ink: linear-gradient(
+    180deg,
+    #1F1813 0%,
+    #2A1F18 50%,
+    #3D2D22 100%
+  );
+
+  /* ── 卡片渐变 ── */
+  --grad-card: linear-gradient(
+    180deg,
+    var(--card) 0%,
+    var(--card-warm) 100%
+  );
+
+  /* ── 字体栈 ── */
   --serif-cn:   'LXGW WenKai Screen', 'LXGW WenKai', 'Noto Serif SC', 'Songti SC', 'STSong', serif;
   --serif-en:   var(--font-title), 'Cormorant Garamond', Georgia, serif;
-  --serif-mix:  var(--font-title), 'Cormorant Garamond', 'LXGW WenKai Screen', 'Noto Serif SC', serif;
+  --serif-mix:  var(--font-title), 'Cormorant Garamond', 'LXGW WenKai Screen', serif;
   --mono:       var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
 
-  /* ── 字号系统 ── */
+  /* ── 字号 ── */
   --type-display:  64px;
   --type-h1:       40px;
   --type-h2:       28px;
@@ -35,18 +98,20 @@
   --type-mono:     13px;
 
   /* ── 间距 ── */
-  --s-1: 4px;
-  --s-2: 8px;
-  --s-3: 16px;
-  --s-4: 24px;
-  --s-5: 32px;
-  --s-6: 48px;
-  --s-7: 64px;
-  --s-8: 96px;
-  --s-9: 128px;
+  --s-1: 4px; --s-2: 8px; --s-3: 16px; --s-4: 24px;
+  --s-5: 32px; --s-6: 48px; --s-7: 64px; --s-8: 96px; --s-9: 128px;
 
   --max-reading: 720px;
   --max-wide:    1080px;
+
+  /* ── 缓动 ── */
+  --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ── 阴影 ── */
+  --shadow-paper: 0 1px 0 rgba(33, 24, 19, 0.04), 0 8px 24px -12px rgba(96, 70, 40, 0.18);
+  --shadow-seal:  1px 2px 0 rgba(33, 24, 19, 0.16), 2px 4px 6px -2px rgba(126, 31, 24, 0.4);
+  --shadow-lift:  0 2px 0 rgba(33, 24, 19, 0.04), 0 16px 40px -16px rgba(96, 70, 40, 0.28);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -58,39 +123,65 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── 主体：多层氛围背景 ── */
 body {
-  background-color: var(--bg);
   color: var(--fg);
   font-family: var(--serif-cn);
   line-height: 1.85;
   letter-spacing: 0.01em;
 
-  /* 古纸纹理：双层 — 极细颗粒噪点 + 极淡米色斑驳 */
+  /* 基底底色 */
+  background-color: var(--bg);
+
+  /* 多层叠加营造空间感 */
   background-image:
-    radial-gradient(circle at 25% 30%, rgba(168, 50, 50, 0.018) 0, transparent 40%),
-    radial-gradient(circle at 75% 70%, rgba(46, 74, 102, 0.015) 0, transparent 35%),
+    var(--aura-warm),
+    var(--aura-amber),
+    var(--vignette),
+    /* 极细线条纹（像绢的横丝） */
     repeating-linear-gradient(
-      45deg,
-      rgba(33, 28, 24, 0.012) 0,
-      rgba(33, 28, 24, 0.012) 1px,
-      transparent 1px,
-      transparent 4px
+      0deg,
+      transparent 0,
+      transparent 2px,
+      rgba(33, 24, 19, 0.012) 2px,
+      rgba(33, 24, 19, 0.012) 3px
     ),
+    /* 颗粒噪点 */
     repeating-radial-gradient(
       circle at 50% 50%,
-      rgba(33, 28, 24, 0.025) 0,
-      rgba(33, 28, 24, 0.025) 1px,
+      rgba(33, 24, 19, 0.022) 0,
+      rgba(33, 24, 19, 0.022) 1px,
       transparent 1px,
       transparent 3px
     );
-  background-size: 100% 100%, 100% 100%, 6px 6px, 4px 4px;
+  background-attachment: fixed, fixed, fixed, fixed, scroll;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 3px, 4px 4px;
+  min-height: 100vh;
+}
+
+/* ── 大背景"易"水印（极淡） ── */
+body::before {
+  content: '易';
+  position: fixed;
+  top: -4vw;
+  right: -2vw;
+  font-family: var(--serif-cn);
+  font-size: 50vw;
+  line-height: 1;
+  color: var(--gold-deep);
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  font-weight: 400;
 }
 
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 220ms ease-out, border-color 220ms ease-out;
+  transition: color 260ms var(--ease-soft), border-color 260ms var(--ease-soft);
   border-bottom: 1px solid transparent;
+  position: relative;
 }
 a:hover, a:focus-visible {
   color: var(--accent);
@@ -116,43 +207,58 @@ button { font-family: inherit; cursor: pointer; }
   margin: 0 auto;
   padding-left: var(--s-4);
   padding-right: var(--s-4);
+  position: relative;
+  z-index: 1;
 }
 .container-reading {
   max-width: var(--max-reading);
   margin: 0 auto;
   padding-left: var(--s-4);
   padding-right: var(--s-4);
+  position: relative;
+  z-index: 1;
 }
 
-/* ── 古典装饰元素 ── */
-
-/* 朱栏：竖直朱砂细线，用于段落侧 */
+/* ── 朱栏：带渐变（wet ink）── */
 .zhulan {
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid transparent;
+  border-image: linear-gradient(180deg, var(--accent-bright) 0%, var(--accent-deep) 100%) 1;
   padding-left: var(--s-4);
 }
 
-/* 印章：朱砂方块，里面写一个字，可微旋转 */
+/* ── 印章：渐变 + 立体感 ── */
 .seal {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 48px;
   height: 48px;
-  background: var(--accent-deep);
+  background: var(--grad-cinnabar);
   color: var(--card);
   font-family: var(--serif-cn);
   font-size: 26px;
   line-height: 1;
   font-weight: 400;
   transform: rotate(-3deg);
-  box-shadow: 1px 1px 0 rgba(33, 28, 24, 0.2);
+  box-shadow: var(--shadow-seal);
   letter-spacing: 0;
   user-select: none;
   flex-shrink: 0;
+  position: relative;
+}
+/* 印章里里加一点不均匀的"印泥渍" */
+.seal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 30% 30%,
+    rgba(255, 255, 255, 0.18) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
 }
 
-/* 卷草分割线 */
 .fleuron {
   display: flex;
   align-items: center;
@@ -168,13 +274,15 @@ button { font-family: inherit; cursor: pointer; }
   flex: 1;
   max-width: 80px;
   height: 1px;
-  background: var(--border);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border) 50%,
+    transparent 100%
+  );
 }
 .fleuron::before { margin-right: var(--s-4); }
 .fleuron::after { margin-left: var(--s-4); }
-.fleuron-mark::after {
-  content: '❦';
-}
 
 .hairline {
   height: 1px;
@@ -182,24 +290,49 @@ button { font-family: inherit; cursor: pointer; }
   border: 0;
   margin: 0;
 }
-.thick-rule {
-  height: 4px;
-  background: var(--fg);
-  border: 0;
-  margin: 0;
-}
 
 .eyebrow {
   font-family: var(--mono);
   font-size: var(--type-mono);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
 ::selection {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--card);
+}
+
+/* ── 入场动画 ── */
+@keyframes ylFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ylFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ylInkBloom {
+  from { opacity: 0; transform: scale(0.92); filter: blur(4px); }
+  to   { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+.animFadeUp { animation: ylFadeUp 800ms var(--ease-soft) both; }
+.animFadeIn { animation: ylFadeIn 1000ms var(--ease-soft) both; }
+.animInkBloom { animation: ylInkBloom 1100ms var(--ease-soft) both; }
+.delay-1 { animation-delay: 100ms; }
+.delay-2 { animation-delay: 250ms; }
+.delay-3 { animation-delay: 400ms; }
+.delay-4 { animation-delay: 550ms; }
+.delay-5 { animation-delay: 700ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0ms !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -215,4 +348,5 @@ button { font-family: inherit; cursor: pointer; }
     padding-right: var(--s-3);
   }
   .seal { width: 38px; height: 38px; font-size: 20px; }
+  body::before { font-size: 90vw; opacity: 0.04; }
 }

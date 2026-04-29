@@ -2,7 +2,27 @@
   border-top: 1px solid var(--border);
   margin-top: var(--s-9);
   padding: var(--s-6) 0;
-  background: var(--bg-warm);
+  background: linear-gradient(
+    180deg,
+    var(--bg-warm) 0%,
+    var(--bg-deeper) 100%
+  );
+  position: relative;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold) 50%,
+    transparent 100%
+  );
 }
 
 .inner {
@@ -25,24 +45,37 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
-  background: var(--accent-deep);
+  width: 28px;
+  height: 28px;
+  background: var(--grad-cinnabar);
   color: var(--card);
   font-family: var(--serif-cn);
   font-size: 15px;
   transform: rotate(-3deg);
+  box-shadow: var(--shadow-seal);
+  position: relative;
+}
+.brandSeal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 30% 30%,
+    rgba(255, 255, 255, 0.18) 0%,
+    transparent 55%
+  );
 }
 .brandWord {
   font-family: var(--serif-en);
   font-style: italic;
   font-weight: 500;
   font-size: 18px;
+  color: var(--fg-soft);
 }
 
 .meta {
   font-family: var(--serif-cn);
   font-size: 14px;
   color: var(--muted);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
 }
