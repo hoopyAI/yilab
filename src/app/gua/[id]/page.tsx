@@ -123,15 +123,35 @@ export default async function GuaDetailPage({ params }: { params: Promise<Params
             <h2 className={styles.decisionTitle}>时位三问</h2>
             <div className={styles.decisionTitleEn}>Three Questions of Position &amp; Time</div>
             <ul className={styles.checkpointList}>
-              {h.decisionFramework.checkpoints.map((cp, i) => (
-                <li
-                  key={i}
-                  className={styles.checkpoint}
-                  dangerouslySetInnerHTML={{
-                    __html: cp.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>'),
-                  }}
-                />
-              ))}
+              {h.decisionFramework.checkpoints.map((cp, i) => {
+                let label = '';
+                let hint: string | undefined;
+                let body = '';
+                if (typeof cp === 'string') {
+                  const m = cp.match(/^\*\*([^*]+)\*\*[：:]\s*([\s\S]*)$/);
+                  if (m) {
+                    label = m[1];
+                    body = m[2];
+                  } else {
+                    body = cp;
+                  }
+                } else {
+                  label = cp.label;
+                  hint = cp.hint;
+                  body = cp.body;
+                }
+                return (
+                  <li key={i} className={styles.checkpoint}>
+                    {label && (
+                      <header className={styles.checkpointHead}>
+                        <span className={styles.checkpointLabel}>{label}</span>
+                        {hint && <span className={styles.checkpointHint}>{hint}</span>}
+                      </header>
+                    )}
+                    <p className={styles.checkpointBody}>{body}</p>
+                  </li>
+                );
+              })}
             </ul>
             <div className={`${styles.scenarioLabel} eyebrow`}>今 境 · A Modern Reflection</div>
             <p className={styles.scenario}>{h.decisionFramework.scenario}</p>
@@ -145,7 +165,7 @@ export default async function GuaDetailPage({ params }: { params: Promise<Params
           <div className={styles.divider}>❦</div>
           <div className={`${styles.sectionLabel} eyebrow`}>爻辞 · The Lines</div>
           <p className={styles.linesIntro}>
-            自下而上，从初爻读到上爻——下方为最早的潜伏期，上方为最末的过盛期。
+            初爻（最早的潜伏期）→ 上爻（最末的过盛期）。窄屏自下而上单列，宽屏左下右上双列。
           </p>
           <ul className={styles.linesList}>
             {h.lines.map((line) => (
@@ -154,11 +174,14 @@ export default async function GuaDetailPage({ params }: { params: Promise<Params
                   <span className={styles.linePosLabel}>{line.positionLabel}</span>
                   <span className={styles.linePosOrd}>{String(line.position).padStart(2, '0')}</span>
                 </div>
-                <div>
+                <div className={styles.lineBody}>
                   {line.text ? (
                     <p className={styles.lineText}>{line.text}</p>
                   ) : (
                     <p className={styles.lineEmpty}>古文整理中</p>
+                  )}
+                  {line.modern && (
+                    <p className={styles.lineModern}>{line.modern}</p>
                   )}
                 </div>
               </li>

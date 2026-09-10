@@ -40,7 +40,10 @@ export type Hexagram = {
   judgmentModern?: string;
   imageModern?: string;
   decisionFramework?: {
-    checkpoints: string[];
+    checkpoints: Array<
+      | string
+      | { label: string; hint?: string; body: string }
+    >;
     scenario: string;
   };
 

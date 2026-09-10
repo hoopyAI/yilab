@@ -93,7 +93,7 @@
   content: '';
   position: absolute;
   inset: 4px;
-  border: 1px solid rgba(255, 250, 236, 0.4);
+  border: 1px solid rgba(252, 252, 250, 0.4);
   pointer-events: none;
 }
 
@@ -121,12 +121,12 @@
 .cell:hover, .cell:focus-visible {
   background: linear-gradient(
     180deg,
-    #FFFCF1 0%,
-    #F8E8B8 100%
+    #FFFFFF 0%,
+    #ECEAE5 100%
   );
   border-bottom: 0;
   z-index: 2;
-  box-shadow: 0 4px 12px -4px rgba(96, 70, 40, 0.3);
+  box-shadow: 0 4px 12px -4px rgba(37, 39, 42, 0.22);
 }
 
 .cellSymbol {

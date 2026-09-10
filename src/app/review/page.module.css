@@ -1,0 +1,403 @@
+/* ================================================================
+   /review — 三色对比页
+   每张卡片用 data-palette 局部覆盖 CSS 变量，互不污染
+   ================================================================ */
+
+.wrap {
+  /* 这一页本身就是对比工具，盖掉全局米黄背景 */
+  background: #ECEAE4;
+  background-image:
+    radial-gradient(ellipse 1000px 600px at 50% 0%, rgba(255,255,255,0.4) 0%, transparent 60%);
+  min-height: 100vh;
+  padding: var(--s-7) var(--s-3) var(--s-9);
+  /* 这一页用更现代的字体栈，避免被全局衬线 lock 住 */
+}
+
+/* ── 顶部 intro ── */
+.intro {
+  max-width: 720px;
+  margin: 0 auto var(--s-7);
+  text-align: center;
+  padding: 0 var(--s-3);
+}
+.introInner { display: flex; flex-direction: column; align-items: center; gap: var(--s-3); }
+.introEyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: #8B8680;
+}
+.introTitle {
+  font-family: var(--serif-cn);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 400;
+  color: #2A2826;
+  letter-spacing: 0.04em;
+}
+.introEn {
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-weight: 400;
+  color: #8B8680;
+  font-size: 0.7em;
+  letter-spacing: 0.06em;
+}
+.introText {
+  font-family: var(--serif-cn);
+  font-size: 16px;
+  line-height: 1.85;
+  color: #5A5550;
+  max-width: 560px;
+}
+.introHint {
+  margin-top: var(--s-2);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: #8B8680;
+}
+
+/* ── 单张卡片 ── */
+.card {
+  max-width: 1080px;
+  margin: 0 auto var(--s-6);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.04),
+    0 24px 60px -28px rgba(0,0,0,0.18);
+  isolation: isolate;
+  /* 默认（被下面 data-palette 覆盖） */
+  background: var(--p-bg);
+  color: var(--p-fg);
+  border: 1px solid var(--p-border);
+}
+.cardInner { padding: var(--s-7) var(--s-6); }
+
+/* ── 卡片头：标识 + 名称 ── */
+.cardHead {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--s-2);
+}
+.cardId {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  padding: 4px 10px;
+  background: var(--p-fg);
+  color: var(--p-bg);
+  border-radius: 2px;
+}
+.cardName {
+  font-family: var(--serif-cn);
+  font-size: 26px;
+  letter-spacing: 0.06em;
+  color: var(--p-fg);
+}
+.cardEn {
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--p-muted);
+  letter-spacing: 0.05em;
+}
+.cardDesc {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--p-muted);
+  text-transform: uppercase;
+  margin-bottom: var(--s-6);
+}
+
+/* ── 主体两列 ── */
+.body {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: var(--s-7);
+  align-items: center;
+  padding: var(--s-5) 0 var(--s-6);
+}
+@media (max-width: 820px) {
+  .body { grid-template-columns: 1fr; gap: var(--s-5); text-align: center; }
+}
+
+/* ── 太极八卦 emblem ── */
+.emblemCol {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  /* 给 SVG 一个微妙的"垫底" */
+  padding: var(--s-4);
+}
+.emblemHalo {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--p-card) 0%,
+    transparent 65%
+  );
+  z-index: 0;
+  border-radius: 50%;
+}
+.emblemCol > svg { position: relative; z-index: 1; }
+.emblemCaption {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--p-muted);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 文案列 ── */
+.textCol { display: flex; flex-direction: column; gap: var(--s-3); }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--p-muted);
+  text-transform: uppercase;
+}
+.mark {
+  font-family: var(--serif-cn);
+  font-size: 96px;
+  line-height: 0.9;
+  color: var(--p-fg);
+  letter-spacing: -0.04em;
+}
+.brand {
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--p-fg-soft);
+  letter-spacing: 0.06em;
+}
+.tagline {
+  font-family: var(--serif-cn);
+  font-size: 22px;
+  color: var(--p-fg);
+  margin-top: var(--s-2);
+  letter-spacing: 0.1em;
+}
+.subtag {
+  font-family: var(--serif-en);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--p-muted);
+}
+.bullet {
+  font-family: var(--serif-cn);
+  font-size: 14px;
+  color: var(--p-muted);
+  margin-top: var(--s-2);
+  line-height: 1.7;
+}
+
+/* ── CTA ── */
+.ctas {
+  display: flex;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+  margin-top: var(--s-3);
+}
+@media (max-width: 820px) {
+  .ctas { justify-content: center; }
+}
+.cta {
+  font-family: var(--serif-cn);
+  font-size: 16px;
+  padding: 12px 28px;
+  background: transparent;
+  color: var(--p-fg);
+  border: 1px solid var(--p-fg);
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 240ms ease;
+}
+.cta:hover { background: var(--p-fg); color: var(--p-bg); }
+.ctaPrimary {
+  background: var(--p-accent);
+  color: var(--p-bg);
+  border-color: var(--p-accent);
+}
+.ctaPrimary:hover {
+  background: var(--p-accent-deep, var(--p-accent));
+  border-color: var(--p-accent-deep, var(--p-accent));
+}
+
+/* ── 示例条目（recent 仿真） ── */
+.recent {
+  list-style: none;
+  margin: var(--s-4) 0 var(--s-5);
+  padding: 0;
+  border-top: 1px solid var(--p-border);
+}
+.recent li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-4);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--p-border);
+  font-family: var(--serif-cn);
+}
+.recentSeq {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--p-muted);
+  width: 80px;
+  flex-shrink: 0;
+}
+.recentTitle { flex: 1; font-size: 17px; color: var(--p-fg); }
+.recentSym { font-size: 22px; color: var(--p-muted); }
+
+/* ── 色板 ── */
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--s-3);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--p-border);
+}
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+.swatchChip {
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  border: 1px solid var(--p-border);
+  flex-shrink: 0;
+}
+.swatchMeta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.swatchLabel {
+  font-family: var(--serif-cn);
+  font-size: 13px;
+  color: var(--p-fg);
+  letter-spacing: 0.06em;
+}
+.swatchHex {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--p-muted);
+}
+
+/* ── 尾部 ── */
+.outro {
+  max-width: 720px;
+  margin: var(--s-7) auto 0;
+  text-align: center;
+  padding: 0 var(--s-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+}
+.outroText {
+  font-family: var(--serif-cn);
+  font-size: 18px;
+  color: #2A2826;
+  letter-spacing: 0.04em;
+}
+.outroText strong { color: #944138; font-weight: 500; }
+.outroHint {
+  font-family: var(--serif-cn);
+  font-size: 14px;
+  color: #8B8680;
+}
+.outroBack {
+  margin-top: var(--s-4);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: #5A5550;
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+.outroBack:hover { color: #944138; }
+
+
+/* ================================================================
+   ── 三套配色 · 通过 data-palette 覆盖 ──
+   ================================================================ */
+
+/* ── A · 月白宋瓷（冷·极低饱和） ── */
+.card[data-palette='A'] {
+  --p-bg:        #F5F4F1;
+  --p-card:      #FCFCFA;
+  --p-fg:        #25272A;
+  --p-fg-soft:   #3A3D42;
+  --p-muted:     #7A8088;
+  --p-border:    #DEDDD8;
+  --p-accent:    #9E4942;
+  --p-accent-deep: #803830;
+
+  /* 太极配色 */
+  --tj-yang:     #FCFCFA;
+  --tj-yin:      #25272A;
+  --tj-eye-y:    #25272A;
+  --tj-eye-n:    #FCFCFA;
+  --tj-stroke:   #25272A;
+  --tj-trigram:  #3A3D42;
+  --tj-ring:     #DEDDD8;
+}
+
+/* ── B · 茶素（微暖·中等低饱和）⭐ 推荐 ── */
+.card[data-palette='B'] {
+  --p-bg:        #F0EBE0;
+  --p-card:      #F8F4EA;
+  --p-fg:        #2A2520;
+  --p-fg-soft:   #44382C;
+  --p-muted:     #8B7E6D;
+  --p-border:    #D8CFBE;
+  --p-accent:    #A85742;
+  --p-accent-deep: #884232;
+
+  --tj-yang:     #F8F4EA;
+  --tj-yin:      #2A2520;
+  --tj-eye-y:    #2A2520;
+  --tj-eye-n:    #F8F4EA;
+  --tj-stroke:   #2A2520;
+  --tj-trigram:  #44382C;
+  --tj-ring:     #D8CFBE;
+}
+
+/* ── C · 墨石（中性·黑白灰） ── */
+.card[data-palette='C'] {
+  --p-bg:        #F0EFEC;
+  --p-card:      #FAFAF8;
+  --p-fg:        #1F1F22;
+  --p-fg-soft:   #34343A;
+  --p-muted:     #6B6B6E;
+  --p-border:    #E0DFDC;
+  --p-accent:    #944138;
+  --p-accent-deep: #762F28;
+
+  --tj-yang:     #FAFAF8;
+  --tj-yin:      #1F1F22;
+  --tj-eye-y:    #1F1F22;
+  --tj-eye-n:    #FAFAF8;
+  --tj-stroke:   #1F1F22;
+  --tj-trigram:  #34343A;
+  --tj-ring:     #E0DFDC;
+}
+
+/* ── 移动端微调 ── */
+@media (max-width: 600px) {
+  .cardInner { padding: var(--s-5) var(--s-4); }
+  .mark { font-size: 72px; }
+  .brand { font-size: 22px; }
+  .tagline { font-size: 18px; }
+}

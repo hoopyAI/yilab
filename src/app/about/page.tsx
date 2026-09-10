@@ -73,6 +73,40 @@ export default function AboutPage() {
           </ol>
         </section>
 
+        <section className={styles.author}>
+          <div className={`${styles.sectionLabel} eyebrow`}>笔者 · By</div>
+          <a
+            className={styles.authorCard}
+            href="https://hoopyai.space"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="访问作者主页 hoopyai.space"
+          >
+            <span className={styles.authorAvatarFrame}>
+              <img
+                className={styles.authorAvatar}
+                src="/images/avatar.jpg"
+                alt="潦草虎皮AI说"
+                width={120}
+                height={120}
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+            <div className={styles.authorMeta}>
+              <div className={styles.authorEyebrow}>AI 工程师 · AI 玩家</div>
+              <h3 className={styles.authorName}>潦草虎皮AI说</h3>
+              <p className={styles.authorBio}>
+                白天做 AI Agent 方案，业余用 AI 探索一切有趣的事。
+                YiLab 是这位作者把易经放回工作台上的另一只手。
+              </p>
+              <span className={styles.authorLink}>
+                hoopyai.space <span aria-hidden>→</span>
+              </span>
+            </div>
+          </a>
+        </section>
+
       </div>
     </div>
   );

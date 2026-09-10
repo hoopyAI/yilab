@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { HEXAGRAMS, hasModernContent } from '@/data/hexagrams';
+import TaijiBagua from '@/components/TaijiBagua';
 import styles from './page.module.css';
 
 export default function HomePage() {
@@ -22,7 +23,9 @@ export default function HomePage() {
 
           <div className={`${styles.brandWord} animFadeUp delay-2`}>YiLab</div>
 
-          <div className={`${styles.fleuron} animFadeIn delay-3`}>❦</div>
+          <div className={`${styles.fleuron} animFadeIn delay-3`}>
+            <TaijiBagua size={96} ariaLabel="太极 · 八卦" />
+          </div>
 
           <p className={`${styles.tagline} animFadeUp delay-3`}>一卷可翻阅的易经</p>
           <p className={`${styles.subtag} animFadeUp delay-4`}>

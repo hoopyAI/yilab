@@ -1,78 +1,68 @@
 /* ================================================================
-   YiLab — 绢本古卷 设计系统 v3
-   层次感强 / 渐变与质感 / 笔墨与朱砂的呼吸
+   YiLab — 月白宋瓷 设计系统 v4
+   冷调 · 极低饱和 · 哑光朱砂 · 单层背景
    ================================================================ */
 
 @import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css');
 
 :root {
-  /* ── 基础色（带温度）── */
-  --bg-light:   #F8EFD3;  /* 米纸最亮处（光斑） */
-  --bg:         #EFE2BC;  /* 米纸基色 */
-  --bg-warm:    #E5D5A8;  /* 米纸暗处（卷边） */
-  --bg-deeper:  #D5C193;  /* 描影 */
+  /* ── 基础色（冷调） ── */
+  --bg-light:   #FAFAF7;  /* 高光 */
+  --bg:         #F5F4F1;  /* 主背景：月白 */
+  --bg-warm:    #ECEAE5;  /* 略深 */
+  --bg-deeper:  #E2DFD9;  /* 描影 */
 
-  --fg:         #1F1813;  /* 深墨 */
-  --fg-soft:    #36281D;  /* 略浅墨 */
+  --fg:         #25272A;  /* 冷深墨 */
+  --fg-soft:    #3A3D42;  /* 略浅墨 */
 
-  --card:       #FFFAEC;  /* 内页纸面 */
-  --card-warm:  #F4E4BD;  /* 贴纸暗 */
+  --card:       #FCFCFA;  /* 内页 */
+  --card-warm:  #F2F1ED;  /* 卡片暗 */
 
-  --muted:      #6B5949;  /* 暖灰墨 */
-  --muted-2:    #8B7457;
+  --muted:      #7A8088;  /* 烟灰青 */
+  --muted-2:    #9499A0;
 
-  --border:     #C9B287;  /* 米色细边 */
-  --border-soft: rgba(33, 24, 19, 0.08);
+  --border:     #DEDDD8;
+  --border-soft: rgba(37, 39, 42, 0.08);
 
-  /* ── 朱砂体系（带深浅）── */
-  --accent:     #B43A2E;
-  --accent-deep: #7E1F18;
-  --accent-bright: #D4554A;
-  --accent-glow: rgba(180, 58, 46, 0.25);
+  /* ── 朱砂体系（哑光） ── */
+  --accent:        #9E4942;
+  --accent-deep:   #803830;
+  --accent-bright: #B25852;
+  --accent-glow:   rgba(158, 73, 66, 0.18);
 
-  /* ── 墨青 + 描金 ── */
-  --ink-blue:   #2E4A66;
-  --gold:       #B89858;
-  --gold-deep:  #8E7440;
+  /* ── 中性辅色（替换原"金"系，保留变量名） ── */
+  --ink-blue:   #4A5560;
+  --gold:       #A8A39A;  /* 中性亚麻灰 */
+  --gold-deep:  #8A857C;
 
-  /* ── 氛围渐变（背景叠层）── */
-  --aura-warm: radial-gradient(
-    ellipse 1200px 800px at 30% 20%,
-    rgba(248, 234, 196, 0.85) 0%,
-    rgba(239, 226, 188, 0.4) 35%,
+  /* ── 氛围渐变：单层 · 极轻 ── */
+  --aura: radial-gradient(
+    ellipse 1400px 900px at 50% 0%,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.15) 35%,
     transparent 70%
   );
-  --aura-amber: radial-gradient(
-    ellipse 800px 600px at 80% 70%,
-    rgba(184, 152, 88, 0.18) 0%,
-    transparent 60%
-  );
-  --vignette: radial-gradient(
-    ellipse at center,
-    transparent 50%,
-    rgba(96, 70, 40, 0.12) 100%
-  );
 
-  /* ── 朱砂渐变（仿宣纸印泥不均匀）── */
+  /* ── 朱砂渐变（哑光） ── */
   --grad-cinnabar: linear-gradient(
     135deg,
-    var(--accent-bright) 0%,
-    var(--accent) 45%,
-    var(--accent-deep) 100%
+    #B25852 0%,
+    #9E4942 50%,
+    #803830 100%
   );
   --grad-cinnabar-soft: linear-gradient(
     135deg,
-    rgba(212, 85, 74, 0.95) 0%,
-    rgba(180, 58, 46, 0.95) 50%,
-    rgba(126, 31, 24, 0.95) 100%
+    rgba(178, 88, 82, 0.92) 0%,
+    rgba(158, 73, 66, 0.92) 50%,
+    rgba(128, 56, 48, 0.92) 100%
   );
 
-  /* ── 墨色渐变 ── */
+  /* ── 墨色渐变（冷调） ── */
   --grad-ink: linear-gradient(
     180deg,
-    #1F1813 0%,
-    #2A1F18 50%,
-    #3D2D22 100%
+    #1F2125 0%,
+    #2A2D32 50%,
+    #3A3D42 100%
   );
 
   /* ── 卡片渐变 ── */
@@ -108,10 +98,10 @@
   --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* ── 阴影 ── */
-  --shadow-paper: 0 1px 0 rgba(33, 24, 19, 0.04), 0 8px 24px -12px rgba(96, 70, 40, 0.18);
-  --shadow-seal:  1px 2px 0 rgba(33, 24, 19, 0.16), 2px 4px 6px -2px rgba(126, 31, 24, 0.4);
-  --shadow-lift:  0 2px 0 rgba(33, 24, 19, 0.04), 0 16px 40px -16px rgba(96, 70, 40, 0.28);
+  /* ── 阴影（冷调） ── */
+  --shadow-paper: 0 1px 0 rgba(37, 39, 42, 0.04), 0 8px 24px -12px rgba(37, 39, 42, 0.14);
+  --shadow-seal:  1px 2px 0 rgba(37, 39, 42, 0.16), 2px 4px 6px -2px rgba(128, 56, 48, 0.32);
+  --shadow-lift:  0 2px 0 rgba(37, 39, 42, 0.04), 0 16px 40px -16px rgba(37, 39, 42, 0.20);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -123,57 +113,18 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── 主体：多层氛围背景 ── */
+/* ── 主体：单层极轻背景 ── */
 body {
   color: var(--fg);
   font-family: var(--serif-cn);
   line-height: 1.85;
   letter-spacing: 0.01em;
 
-  /* 基底底色 */
   background-color: var(--bg);
-
-  /* 多层叠加营造空间感 */
-  background-image:
-    var(--aura-warm),
-    var(--aura-amber),
-    var(--vignette),
-    /* 极细线条纹（像绢的横丝） */
-    repeating-linear-gradient(
-      0deg,
-      transparent 0,
-      transparent 2px,
-      rgba(33, 24, 19, 0.012) 2px,
-      rgba(33, 24, 19, 0.012) 3px
-    ),
-    /* 颗粒噪点 */
-    repeating-radial-gradient(
-      circle at 50% 50%,
-      rgba(33, 24, 19, 0.022) 0,
-      rgba(33, 24, 19, 0.022) 1px,
-      transparent 1px,
-      transparent 3px
-    );
-  background-attachment: fixed, fixed, fixed, fixed, scroll;
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 3px, 4px 4px;
+  background-image: var(--aura);
+  background-attachment: fixed;
+  background-size: 100% 100%;
   min-height: 100vh;
-}
-
-/* ── 大背景"易"水印（极淡） ── */
-body::before {
-  content: '易';
-  position: fixed;
-  top: -4vw;
-  right: -2vw;
-  font-family: var(--serif-cn);
-  font-size: 50vw;
-  line-height: 1;
-  color: var(--gold-deep);
-  opacity: 0.035;
-  pointer-events: none;
-  z-index: 0;
-  user-select: none;
-  font-weight: 400;
 }
 
 a {
@@ -219,14 +170,14 @@ button { font-family: inherit; cursor: pointer; }
   z-index: 1;
 }
 
-/* ── 朱栏：带渐变（wet ink）── */
+/* ── 朱栏：哑光渐变 ── */
 .zhulan {
   border-left: 2px solid transparent;
   border-image: linear-gradient(180deg, var(--accent-bright) 0%, var(--accent-deep) 100%) 1;
   padding-left: var(--s-4);
 }
 
-/* ── 印章：渐变 + 立体感 ── */
+/* ── 印章：哑光朱砂 ── */
 .seal {
   display: inline-flex;
   align-items: center;
@@ -246,14 +197,13 @@ button { font-family: inherit; cursor: pointer; }
   flex-shrink: 0;
   position: relative;
 }
-/* 印章里里加一点不均匀的"印泥渍" */
 .seal::after {
   content: '';
   position: absolute;
   inset: 0;
   background: radial-gradient(
     ellipse at 30% 30%,
-    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.14) 0%,
     transparent 50%
   );
   pointer-events: none;
@@ -348,5 +298,4 @@ button { font-family: inherit; cursor: pointer; }
     padding-right: var(--s-3);
   }
   .seal { width: 38px; height: 38px; font-size: 20px; }
-  body::before { font-size: 90vw; opacity: 0.04; }
 }

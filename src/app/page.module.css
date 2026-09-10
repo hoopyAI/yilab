@@ -48,7 +48,7 @@
   z-index: 2;
 }
 
-/* 易字身后的金色光晕 */
+/* 易字身后的极淡光晕（冷调） */
 .halo {
   position: absolute;
   top: 50%;
@@ -58,8 +58,8 @@
   height: 110%;
   background: radial-gradient(
     circle,
-    rgba(184, 152, 88, 0.28) 0%,
-    rgba(184, 152, 88, 0.12) 35%,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.18) 35%,
     transparent 70%
   );
   pointer-events: none;
@@ -71,18 +71,19 @@
   font-family: var(--serif-cn);
   font-size: clamp(220px, 38vw, 380px);
   font-weight: 400;
-  line-height: 0.85;
+  line-height: 1;
+  padding-bottom: 0.04em;
   letter-spacing: -0.04em;
   position: relative;
   display: inline-block;
 
-  /* 渐变文字（深墨 → 偏红墨）*/
+  /* 渐变文字（冷深墨 → 略浅墨）*/
   background: linear-gradient(
     180deg,
-    #1A130F 0%,
-    #2D1F18 45%,
-    #4A2E22 80%,
-    #5C3526 100%
+    #1F2125 0%,
+    #2A2D32 45%,
+    #3A3D42 80%,
+    #4A5560 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -114,7 +115,7 @@
   inset: 0;
   background: radial-gradient(
     ellipse at 28% 28%,
-    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.16) 0%,
     transparent 55%
   );
   pointer-events: none;
@@ -134,9 +135,9 @@
   margin-top: var(--s-3);
   background: linear-gradient(
     135deg,
-    #2A1F18 0%,
-    #4A382B 50%,
-    #6B5240 100%
+    #2A2D32 0%,
+    #4A5560 50%,
+    #6B737C 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -147,15 +148,21 @@
 }
 
 .fleuron {
-  margin: var(--s-5) auto;
-  width: 220px;
+  margin: var(--s-5) auto var(--s-4);
+  width: min(420px, 80%);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent);
-  font-size: 18px;
   position: relative;
   z-index: 2;
+  /* 太极八卦的配色（适配月白宋瓷） */
+  --tj-yang: var(--card);
+  --tj-yin: var(--fg);
+  --tj-eye-y: var(--fg);
+  --tj-eye-n: var(--card);
+  --tj-stroke: var(--fg);
+  --tj-trigram: var(--fg-soft);
+  --tj-ring: var(--border);
 }
 .fleuron::before, .fleuron::after {
   content: '';
@@ -164,12 +171,13 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--gold) 50%,
+    var(--border) 50%,
     transparent 100%
   );
 }
-.fleuron::before { margin-right: var(--s-3); }
-.fleuron::after { margin-left: var(--s-3); }
+.fleuron::before { margin-right: var(--s-4); }
+.fleuron::after { margin-left: var(--s-4); }
+.fleuron > svg { flex-shrink: 0; }
 
 .tagline {
   font-family: var(--serif-cn);
@@ -336,7 +344,7 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 250, 236, 0.6) 50%,
+    rgba(252, 252, 250, 0.7) 50%,
     transparent 100%
   );
 }
